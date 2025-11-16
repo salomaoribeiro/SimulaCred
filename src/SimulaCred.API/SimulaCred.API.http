@@ -1,0 +1,6 @@
+@SimulaCred.API_HostAddress = http://localhost:5193
+
+GET {{SimulaCred.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
