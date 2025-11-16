@@ -1,0 +1,2 @@
+# SimulaCred
+Simulador de crédito
