@@ -1,6 +1,6 @@
 using SimulaCred.Domain.Entities;
 
-namespace SimulaCred.Domain.Interfaces;
+namespace SimulaCred.Application.Interfaces.Repositories;
 
 public interface IProdutoInvestimentoRepository: IBaseRepository<ProdutoInvestimento>
 {

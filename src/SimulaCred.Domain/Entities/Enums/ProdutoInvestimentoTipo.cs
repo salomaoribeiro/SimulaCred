@@ -2,15 +2,14 @@ namespace SimulaCred.Domain.Entities.Enums;
 
 public enum ProdutoInvestimentoTipo
 {
-    // Renda fixa
-    Poupanca,
-    Cdb,
-    TesouroDireto,
-    Lci,
-    Lca,
-    // Renda variável
-    Acoes,
-    FundoImobiliario,
-    // Outros
-    Imoveis
+    Poupanca,               // muito baixo
+    Cdb,                    // muito baixo
+    Lci,                    // baixo
+    Lca,                    // baixo
+    Imoveis,                // moderado
+    Fundo,                  // moderado
+    Acoes,                  // alto
+    TesouroDireto,          // alto
+    BancoMasterCdb,         // inadimplente
+    BancoMasterPrecatorios  // inadimplente
 }

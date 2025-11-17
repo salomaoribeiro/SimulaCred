@@ -6,6 +6,5 @@ public enum ProdutoInvestimentoRisco
     Baixo,
     Moderado,
     Alto,
-    SignificativoInadimplencia,
-    Inadimplente
+    Inadimplencia
 }
