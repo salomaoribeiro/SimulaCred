@@ -24,4 +24,10 @@ public class ProdutoInvestimentoController : ControllerBase
         var retorno = await _mediator.Send(new ListarProdutosRequest(), cancellationToken);
         return Ok(retorno);
     }
+    
+    [HttpGet("/produtos-recomendados/{perfil}")]
+    public async Task<IEnumerable<ProdutosPorPerfilResponse>> Simulacoes([FromRoute] string perfil, CancellationToken cancellationToken)
+    {
+        return await _mediator.Send(new ProdutosPorPerfilRequest(perfil), cancellationToken);
+    } 
 }

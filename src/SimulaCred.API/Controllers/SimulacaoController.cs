@@ -30,6 +30,11 @@ public class SimulacaoController : ControllerBase
     public async Task<IEnumerable<SimulacaoRealizadaResponse>> Simulacoes(CancellationToken cancellationToken)
     {
         return await _mediator.Send(new SimulacaoRealizadaRequest(), cancellationToken);
-        
+    }
+
+    [HttpGet("/simulacoes/por-produto-dia")]
+    public async Task<IEnumerable<SimulacaoPorDiaResponse>> SimulacoesPorDia(CancellationToken cancellationToken)
+    {
+        return await _mediator.Send(new SimulacaoPorDiaRequest(), cancellationToken);
     }
 }

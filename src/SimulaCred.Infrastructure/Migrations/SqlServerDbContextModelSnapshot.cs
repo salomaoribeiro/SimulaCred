@@ -62,14 +62,14 @@ namespace SimulaCred.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ProdutoInvestimento");
+                    b.ToTable("Produtos");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
                             Ativo = true,
-                            CreatedAt = new DateTime(2025, 11, 19, 12, 36, 54, 367, DateTimeKind.Utc).AddTicks(3180),
+                            CreatedAt = new DateTime(2025, 11, 19, 17, 35, 44, 179, DateTimeKind.Utc).AddTicks(8220),
                             Nome = "Poupança Fácil Caixa",
                             PrazoMaximo = (short)6,
                             PrazoMinimo = (short)1,
@@ -81,7 +81,7 @@ namespace SimulaCred.Infrastructure.Migrations
                         {
                             Id = 2,
                             Ativo = true,
-                            CreatedAt = new DateTime(2025, 11, 19, 12, 36, 54, 367, DateTimeKind.Utc).AddTicks(3180),
+                            CreatedAt = new DateTime(2025, 11, 19, 17, 35, 44, 179, DateTimeKind.Utc).AddTicks(8220),
                             Nome = "CDB Caixa 2026",
                             PrazoMaximo = (short)12,
                             PrazoMinimo = (short)7,
@@ -93,7 +93,7 @@ namespace SimulaCred.Infrastructure.Migrations
                         {
                             Id = 3,
                             Ativo = true,
-                            CreatedAt = new DateTime(2025, 11, 19, 12, 36, 54, 367, DateTimeKind.Utc).AddTicks(3180),
+                            CreatedAt = new DateTime(2025, 11, 19, 17, 35, 44, 179, DateTimeKind.Utc).AddTicks(8220),
                             Nome = "LCI Shopping Dia e Noite",
                             PrazoMaximo = (short)12,
                             PrazoMinimo = (short)1,
@@ -105,7 +105,7 @@ namespace SimulaCred.Infrastructure.Migrations
                         {
                             Id = 4,
                             Ativo = true,
-                            CreatedAt = new DateTime(2025, 11, 19, 12, 36, 54, 367, DateTimeKind.Utc).AddTicks(3180),
+                            CreatedAt = new DateTime(2025, 11, 19, 17, 35, 44, 179, DateTimeKind.Utc).AddTicks(8220),
                             Nome = "LCA Comida na Mesa",
                             PrazoMaximo = (short)24,
                             PrazoMinimo = (short)13,
@@ -117,7 +117,7 @@ namespace SimulaCred.Infrastructure.Migrations
                         {
                             Id = 5,
                             Ativo = true,
-                            CreatedAt = new DateTime(2025, 11, 19, 12, 36, 54, 367, DateTimeKind.Utc).AddTicks(3180),
+                            CreatedAt = new DateTime(2025, 11, 19, 17, 35, 44, 179, DateTimeKind.Utc).AddTicks(8220),
                             Nome = "Imovel Legal Caixa",
                             PrazoMaximo = (short)60,
                             PrazoMinimo = (short)24,
@@ -129,7 +129,7 @@ namespace SimulaCred.Infrastructure.Migrations
                         {
                             Id = 6,
                             Ativo = true,
-                            CreatedAt = new DateTime(2025, 11, 19, 12, 36, 54, 367, DateTimeKind.Utc).AddTicks(3190),
+                            CreatedAt = new DateTime(2025, 11, 19, 17, 35, 44, 179, DateTimeKind.Utc).AddTicks(8230),
                             Nome = "Fundo XPTO",
                             PrazoMaximo = (short)48,
                             PrazoMinimo = (short)12,
@@ -141,7 +141,7 @@ namespace SimulaCred.Infrastructure.Migrations
                         {
                             Id = 7,
                             Ativo = true,
-                            CreatedAt = new DateTime(2025, 11, 19, 12, 36, 54, 367, DateTimeKind.Utc).AddTicks(3190),
+                            CreatedAt = new DateTime(2025, 11, 19, 17, 35, 44, 179, DateTimeKind.Utc).AddTicks(8230),
                             Nome = "Ações Tabajara LTDA",
                             PrazoMinimo = (short)1,
                             Rentabilidade = 0.16m,
@@ -152,7 +152,7 @@ namespace SimulaCred.Infrastructure.Migrations
                         {
                             Id = 8,
                             Ativo = true,
-                            CreatedAt = new DateTime(2025, 11, 19, 12, 36, 54, 367, DateTimeKind.Utc).AddTicks(3190),
+                            CreatedAt = new DateTime(2025, 11, 19, 17, 35, 44, 179, DateTimeKind.Utc).AddTicks(8230),
                             Nome = "Tesouro Direto Caixa",
                             PrazoMaximo = (short)36,
                             PrazoMinimo = (short)12,
@@ -164,7 +164,7 @@ namespace SimulaCred.Infrastructure.Migrations
                         {
                             Id = 9,
                             Ativo = true,
-                            CreatedAt = new DateTime(2025, 11, 19, 12, 36, 54, 367, DateTimeKind.Utc).AddTicks(3190),
+                            CreatedAt = new DateTime(2025, 11, 19, 17, 35, 44, 179, DateTimeKind.Utc).AddTicks(8230),
                             Nome = "Banco Master CDB",
                             PrazoMaximo = (short)12,
                             PrazoMinimo = (short)1,
@@ -176,7 +176,7 @@ namespace SimulaCred.Infrastructure.Migrations
                         {
                             Id = 10,
                             Ativo = true,
-                            CreatedAt = new DateTime(2025, 11, 19, 12, 36, 54, 367, DateTimeKind.Utc).AddTicks(3190),
+                            CreatedAt = new DateTime(2025, 11, 19, 17, 35, 44, 179, DateTimeKind.Utc).AddTicks(8230),
                             Nome = "Banco Master Precatórios",
                             PrazoMaximo = (short)24,
                             PrazoMinimo = (short)13,
@@ -219,7 +219,7 @@ namespace SimulaCred.Infrastructure.Migrations
 
                     b.HasIndex("ProdutoId");
 
-                    b.ToTable("Simulacao");
+                    b.ToTable("Simulacoes");
                 });
 
             modelBuilder.Entity("SimulaCred.Domain.Entities.Simulacao", b =>

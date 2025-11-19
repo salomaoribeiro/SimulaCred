@@ -40,6 +40,6 @@ public class SqlServerDbContext : DbContext
         );
     }
 
-    DbSet<ProdutoInvestimento> ProdutoInvestimento { get; set; }
-    DbSet<Simulacao> Simulacao { get; set; }
+    public DbSet<ProdutoInvestimento> Produtos { get; set; }
+    public DbSet<Simulacao> Simulacoes { get; set; }
 }
