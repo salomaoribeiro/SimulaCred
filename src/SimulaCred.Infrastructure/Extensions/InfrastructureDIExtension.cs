@@ -18,5 +18,6 @@ public static class InfrastructureDIExtension
         
         // Repositórios
         services.AddScoped<IProdutoInvestimentoRepository, ProdutoInvestimentoRepository>();
+        services.AddScoped<ISimulacaoRepository, SimulacaoRepository>();
     }
 }

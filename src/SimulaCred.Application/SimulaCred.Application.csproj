@@ -12,12 +12,18 @@
 
     <ItemGroup>
       <Folder Include="DTOs\" />
+      <Folder Include="UseCases\Produto\Query\" />
+      <Folder Include="UseCases\Simulacao\Command\" />
     </ItemGroup>
 
     <ItemGroup>
       <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions">
         <HintPath>..\..\..\..\..\..\..\..\usr\local\share\dotnet\shared\Microsoft.AspNetCore.App\8.0.22\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
       </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="MediatR" Version="13.1.0" />
     </ItemGroup>
 
 </Project>

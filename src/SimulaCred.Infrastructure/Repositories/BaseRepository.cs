@@ -20,6 +20,7 @@ public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
     {
         entity.CreatedAt = DateTime.UtcNow;
         await _context.Set<T>().AddAsync(entity, cancellationToken);
+        await _context.SaveChangesAsync(cancellationToken);
     }
 
     public async Task UpdateAsync(T entity, CancellationToken cancellationToken)

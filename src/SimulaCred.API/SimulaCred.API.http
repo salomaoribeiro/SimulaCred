@@ -1,6 +1,16 @@
-@SimulaCred.API_HostAddress = http://localhost:5193
+@SimulaCred_HostAddress = http://localhost:5193
 
-GET {{SimulaCred.API_HostAddress}}/weatherforecast/
+GET {{SimulaCred_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###
+
+POST {{SimulaCred_HostAddress}}/simular-investimento
+Content-Type: application/json
+
+{
+    "clienteId": 1,
+    "valor": 10000.00,
+    "prazoMeses": 12,
+    "tipoProduto": "CDB"
+}
