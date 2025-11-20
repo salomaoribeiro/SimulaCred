@@ -33,6 +33,7 @@ public class SimulacaoController : ControllerBase
         }
         catch (Exception e)
         {
+            _logger.LogError(e, e.Message);
             return Problem("Erro ao tentar executar a requisição.");
         }
         finally
@@ -52,6 +53,7 @@ public class SimulacaoController : ControllerBase
         }
         catch (Exception e)
         {
+            _logger.LogError(e, e.Message);
             return Problem("Erro ao tentar executar a requisição.");
         }
         finally
@@ -71,6 +73,7 @@ public class SimulacaoController : ControllerBase
         }
         catch (Exception e)
         {
+            _logger.LogError(e, e.Message);
             return Problem("Erro ao tentar executar a requisição.");
         }
         finally

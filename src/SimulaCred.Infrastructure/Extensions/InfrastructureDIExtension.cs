@@ -20,5 +20,6 @@ public static class InfrastructureDIExtension
         services.AddScoped<IProdutoInvestimentoRepository, ProdutoInvestimentoRepository>();
         services.AddScoped<ISimulacaoRepository, SimulacaoRepository>();
         services.AddScoped<ITelemetriaRepository, TelemetriaRepository>();
+        services.AddScoped<IClienteRepository, ClienteRepository>();
     }
 }
