@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: simula-sqlserver
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "YourStrong!Passw0rd123"
+      MSSQL_PID: "Developer"
+    ports:
+      - "1433:1433"
+    volumes:
+      - sql_data:/var/opt/mssql
+    networks:
+      - simula-network
+
+  api:
+    build:
+      context: .
+      dockerfile: SimulaCred.API/Dockerfile
+    container_name: simula-api
+    depends_on:
+      - sqlserver
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+      ConnectionStrings__SqlServer: "Server=sqlserver,1433;Database=SimulaCredDB;User=sa;Password=YourStrong!Passw0rd123;TrustServerCertificate=True"
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+    networks:
+      - simula-network
+
+networks:
+  simula-network:
+    driver: bridge
+
+volumes:
+  sql_data:
+    driver: local
