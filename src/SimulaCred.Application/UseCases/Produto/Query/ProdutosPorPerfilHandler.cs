@@ -18,10 +18,38 @@ public class ProdutosPorPerfilHandler: IRequestHandler<ProdutosPorPerfilRequest,
 
     public async Task<IEnumerable<ProdutosPorPerfilResponse>> Handle(ProdutosPorPerfilRequest request, CancellationToken cancellationToken)
     {
-        // TODO: acertar o motor de crédito para ajustar o perfil 
-        var produtos =
-            await _produtoInvestimentoRepository.GetAllAsync(cancellationToken, expression: p => p.Risco == ProdutoInvestimentoRisco.Baixo);
+        var riscos = RiscosDoPerfil(request.Perfil.ToLower());
+
+        var produtos = await _produtoInvestimentoRepository.GetAllAsync(cancellationToken,
+            expression: p => p.Ativo && riscos.Contains(p.Risco), 
+            orderBy: q=> q.OrderBy(p => p.Risco));
+
         return produtos.Select(p =>
             new ProdutosPorPerfilResponse(p.Id, p.Nome, p.Tipo.ToString(), p.Rentabilidade, p.Risco.ToString()));
+    }
+
+    private List<ProdutoInvestimentoRisco> RiscosDoPerfil(string perfil)
+    {
+        switch (perfil)
+        {
+            case "conservador":
+                return new List<ProdutoInvestimentoRisco>() { ProdutoInvestimentoRisco.MuitoBaixo, ProdutoInvestimentoRisco.Baixo };
+            
+            case "moderado":
+                return new List<ProdutoInvestimentoRisco>() { ProdutoInvestimentoRisco.Baixo, ProdutoInvestimentoRisco.Moderado };
+            
+            case "agressivo":
+                return new List<ProdutoInvestimentoRisco>() { ProdutoInvestimentoRisco.Alto, ProdutoInvestimentoRisco.Inadimplencia };
+            
+            default:
+                return new List<ProdutoInvestimentoRisco>()
+                {
+                    ProdutoInvestimentoRisco.MuitoBaixo, 
+                    ProdutoInvestimentoRisco.Baixo,
+                    ProdutoInvestimentoRisco.Moderado,
+                    ProdutoInvestimentoRisco.Alto,
+                    ProdutoInvestimentoRisco.Inadimplencia
+                };
+        }
     }
 }
