@@ -15,18 +15,18 @@ public class InvestimentoPorClienteHandler: IRequestHandler<InvestimentosPorClie
     public async Task<IEnumerable<InvestimentosPorClienteResponse>> Handle(InvestimentosPorClienteRequest request, CancellationToken cancellationToken)
     {
         var simulacoes = await _simulacaoRepository.GetAllAsync(
-            cancellationToken, 
+            cancellationToken: cancellationToken, 
             expression: s => s.ClientId == request.ClientId, 
             includeProperties: s => s.Produto
         );
         
         return simulacoes.Select(s => 
             new InvestimentosPorClienteResponse(
-                s.Id, 
-                s.Produto.Tipo.ToString(), 
-                s.ValorInvestido, 
-                s.Produto.Rentabilidade, 
-                s.CreatedAt.ToString("yyyy-MM-dd"))
+                Id: s.Id, 
+                Tipo: s.Produto.Tipo.ToString(), 
+                Valor: s.ValorInvestido, 
+                Rentabilidade: s.Produto.Rentabilidade, 
+                Data: s.CreatedAt.ToString("yyyy-MM-dd"))
         );
     }
 }

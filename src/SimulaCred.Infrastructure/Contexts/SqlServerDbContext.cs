@@ -42,4 +42,5 @@ public class SqlServerDbContext : DbContext
 
     public DbSet<ProdutoInvestimento> Produtos { get; set; }
     public DbSet<Simulacao> Simulacoes { get; set; }
+    public DbSet<Telemetria> Telemetrias { get; set; }
 }

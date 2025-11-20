@@ -1,8 +1,9 @@
+using System.Diagnostics;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using SimulaCred.Application.UseCases.Produto.Query;
 using SimulaCred.Application.UseCases.Simulacao.Command;
 using SimulaCred.Application.UseCases.Simulacao.Query;
+using SimulaCred.Application.UseCases.Telemetria.Command;
 using SimulaCred.Domain.Entities;
 
 namespace SimulaCred.API.Controllers;
@@ -23,18 +24,59 @@ public class SimulacaoController : ControllerBase
     [HttpPost("/simular-investimento")]
     public async Task<ActionResult<IEnumerable<ProdutoInvestimento>>> SimularInvestimento([FromBody] SimularInvestimentoRequest request, CancellationToken cancellationToken)
     {
-        return Ok(await _mediator.Send(new SimularInvestimentoRequest(request.ClienteId, request.Valor, request.PrazoMeses, request.TipoProduto), cancellationToken));
+        var sw = Stopwatch.StartNew();
+        try
+        {
+            return Ok(await _mediator.Send(
+                new SimularInvestimentoRequest(request.ClienteId, request.Valor, request.PrazoMeses,
+                    request.TipoProduto), cancellationToken));
+        }
+        catch (Exception e)
+        {
+            return Problem("Erro ao tentar executar a requisição.");
+        }
+        finally
+        {
+            sw.Stop();
+            await _mediator.Send(new SalvarTelemetriaRequest("/simular-investimento",  sw.ElapsedMilliseconds), cancellationToken);
+        }
     }
 
     [HttpGet("/simulacoes")]
-    public async Task<IEnumerable<SimulacaoRealizadaResponse>> Simulacoes(CancellationToken cancellationToken)
+    public async Task<ActionResult<IEnumerable<SimulacoesRealizadasResponse>>> Simulacoes(CancellationToken cancellationToken)
     {
-        return await _mediator.Send(new SimulacaoRealizadaRequest(), cancellationToken);
+        var sw = Stopwatch.StartNew();
+        try
+        {
+            return Ok(await _mediator.Send(new SimulacoesRealizadasRequest(), cancellationToken));
+        }
+        catch (Exception e)
+        {
+            return Problem("Erro ao tentar executar a requisição.");
+        }
+        finally
+        {
+            sw.Stop();
+            await _mediator.Send(new SalvarTelemetriaRequest("/simulacoes",  sw.ElapsedMilliseconds), cancellationToken);
+        }
     }
 
     [HttpGet("/simulacoes/por-produto-dia")]
-    public async Task<IEnumerable<SimulacaoPorDiaResponse>> SimulacoesPorDia(CancellationToken cancellationToken)
+    public async Task<ActionResult<IEnumerable<SimulacaoPorDiaResponse>>> SimulacoesPorDia(CancellationToken cancellationToken)
     {
-        return await _mediator.Send(new SimulacaoPorDiaRequest(), cancellationToken);
+        var sw = Stopwatch.StartNew();
+        try
+        {
+            return Ok(await _mediator.Send(new SimulacaoPorDiaRequest(), cancellationToken));
+        }
+        catch (Exception e)
+        {
+            return Problem("Erro ao tentar executar a requisição.");
+        }
+        finally
+        {
+            sw.Stop();
+            await _mediator.Send(new SalvarTelemetriaRequest("/simulacoes/por-produto-dia",  sw.ElapsedMilliseconds), cancellationToken);
+        }
     }
 }

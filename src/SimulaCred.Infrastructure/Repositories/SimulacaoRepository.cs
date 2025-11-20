@@ -33,7 +33,7 @@ public class SimulacaoRepository : BaseRepository<Simulacao>, ISimulacaoReposito
             .ToList();
         
         var retorno = simulacoes.Select(s =>
-            new SimulacaoPorDiaResponse(s.Produto, s.Data.ToString(), s.Quantidade, s.MediaValorFinal));
+            new SimulacaoPorDiaResponse(s.Produto, s.Data.ToString("yyyy-MM-dd"), s.Quantidade, Math.Round(s.MediaValorFinal, 2)));
         
         return await Task.FromResult(retorno);
     }

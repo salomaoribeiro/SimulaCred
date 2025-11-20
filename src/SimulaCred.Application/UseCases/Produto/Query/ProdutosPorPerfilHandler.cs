@@ -18,7 +18,7 @@ public class ProdutosPorPerfilHandler: IRequestHandler<ProdutosPorPerfilRequest,
 
     public async Task<IEnumerable<ProdutosPorPerfilResponse>> Handle(ProdutosPorPerfilRequest request, CancellationToken cancellationToken)
     {
-        var riscos = RiscosDoPerfil(request.Perfil.ToLower());
+        var riscos = RiscosDoPerfil(request.Perfil);
 
         var produtos = await _produtoInvestimentoRepository.GetAllAsync(cancellationToken,
             expression: p => p.Ativo && riscos.Contains(p.Risco), 
@@ -28,17 +28,17 @@ public class ProdutosPorPerfilHandler: IRequestHandler<ProdutosPorPerfilRequest,
             new ProdutosPorPerfilResponse(p.Id, p.Nome, p.Tipo.ToString(), p.Rentabilidade, p.Risco.ToString()));
     }
 
-    private List<ProdutoInvestimentoRisco> RiscosDoPerfil(string perfil)
+    private List<ProdutoInvestimentoRisco> RiscosDoPerfil(PerfilInvestidor perfil)
     {
         switch (perfil)
         {
-            case "conservador":
+            case PerfilInvestidor.Conservador:
                 return new List<ProdutoInvestimentoRisco>() { ProdutoInvestimentoRisco.MuitoBaixo, ProdutoInvestimentoRisco.Baixo };
             
-            case "moderado":
+            case PerfilInvestidor.Moderado:
                 return new List<ProdutoInvestimentoRisco>() { ProdutoInvestimentoRisco.Baixo, ProdutoInvestimentoRisco.Moderado };
             
-            case "agressivo":
+            case PerfilInvestidor.Agressivo:
                 return new List<ProdutoInvestimentoRisco>() { ProdutoInvestimentoRisco.Alto, ProdutoInvestimentoRisco.Inadimplencia };
             
             default:

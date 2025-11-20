@@ -1,5 +1,4 @@
 using MediatR;
-using SimulaCred.Domain.Entities;
 using Microsoft.Extensions.Logging;
 using SimulaCred.Application.Interfaces.Repositories;
 
@@ -22,20 +21,41 @@ public class SimularInvestimentoHandler : IRequestHandler<SimularInvestimentoReq
     public async Task<SimularInvestimentoResponse> Handle(SimularInvestimentoRequest request, CancellationToken cancellationToken)
     {
         var produtos = await _produtoRepository.GetAllAsync(
-            cancellationToken); //,
-        var produto = produtos.FirstOrDefault(p => request.TipoProduto.ToLower().Contains(p.Tipo.ToString().ToLower())
-                                                   && (p.PrazoMinimo <= request.PrazoMeses && p.PrazoMaximo >= request.PrazoMeses)
-                                                   && p.Tipo.ToString().ToLower().Contains(request.TipoProduto.ToLower()));
+            cancellationToken);
+        
+        // TODO: mudar o tipo de string para enum
+        var produto = produtos.FirstOrDefault(p => 
+            // request.TipoProduto.ToLower().Contains(p.Tipo.ToString().ToLower()) 
+            p.Tipo.ToString().ToLower().Contains(request.TipoProduto.ToLower())
+            && (p.PrazoMinimo <= request.PrazoMeses && p.PrazoMaximo >= request.PrazoMeses)
+        );
 
         // TODO: Validar se não tem produto caso contrário dará erro
-        // if (produtos.Any())
-        var simulacao = new Domain.Entities.Simulacao(request.ClienteId, produto.Id,request.Valor, request.Valor * produto.Rentabilidade + request.Valor, request.PrazoMeses);
+        // if (!produtos.Any())
+            // return new SimularInvestimentoResponse(new ProdutoValidado(), new ResultadoSimulacao(), sim);
+        
+        
+        var simulacao = new Domain.Entities.Simulacao(
+            clientId: request.ClienteId,
+            produtoId: produto.Id,
+            valorInvestido: request.Valor, 
+            valorFinal: (request.Valor * produto.Rentabilidade) + request.Valor, 
+            prazoInvestimento: request.PrazoMeses);
+        
         await _simulacaoRepository.AddAsync(simulacao, cancellationToken);
         
         return new SimularInvestimentoResponse(
-            new ProdutoValidado(produto.Id, produto.Nome, produto.Tipo.ToString(), produto.Rentabilidade, produto.Risco.ToString()), 
-            new ResultadoSimulacao(request.Valor * produto.Rentabilidade, produto.Rentabilidade, request.PrazoMeses), 
-            new DateTime()
+            new ProdutoValidado(
+                id: simulacao.Id, 
+                nome: produto.Nome,
+                tipo: produto.Tipo.ToString(), 
+                rentabilidade: produto.Rentabilidade, 
+                risco: produto.Risco.ToString()),
+            new ResultadoSimulacao(
+                valorFinal: (request.Valor * produto.Rentabilidade) + request.Valor,
+                rentabilidadeEfetiva: produto.Rentabilidade, 
+                prazoMeses: request.PrazoMeses),
+            DataSimulacao: simulacao.CreatedAt
         );
     }
 }
