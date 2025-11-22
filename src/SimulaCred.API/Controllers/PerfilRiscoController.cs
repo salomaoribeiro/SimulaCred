@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SimulaCred.Application.UseCases.Perfil;
 using SimulaCred.Application.UseCases.Telemetria.Command;
@@ -18,6 +19,7 @@ public class PerfilRiscoController : ControllerBase
         _mediator = mediator;
     }
 
+    [Authorize]
     [HttpGet("/perfil-risco/{clienteId}")]
     public async Task<IActionResult> GetPerfil(int clienteId, CancellationToken cancellationToken)
     {

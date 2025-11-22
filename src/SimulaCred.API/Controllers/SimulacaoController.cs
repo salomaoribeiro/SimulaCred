@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SimulaCred.Application.UseCases.Simulacao.Command;
 using SimulaCred.Application.UseCases.Simulacao.Query;
@@ -9,7 +10,6 @@ using SimulaCred.Domain.Entities;
 namespace SimulaCred.API.Controllers;
 
 [ApiController]
-// [Route("[controller]")]
 public class SimulacaoController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -21,6 +21,7 @@ public class SimulacaoController : ControllerBase
         _mediator = mediator;
     }
 
+    [Authorize]
     [HttpPost("/simular-investimento")]
     public async Task<ActionResult<IEnumerable<ProdutoInvestimento>>> SimularInvestimento([FromBody] SimularInvestimentoRequest request, CancellationToken cancellationToken)
     {
@@ -43,6 +44,7 @@ public class SimulacaoController : ControllerBase
         }
     }
 
+    [Authorize]
     [HttpGet("/simulacoes")]
     public async Task<ActionResult<IEnumerable<SimulacoesRealizadasResponse>>> Simulacoes(CancellationToken cancellationToken)
     {
@@ -63,6 +65,7 @@ public class SimulacaoController : ControllerBase
         }
     }
 
+    [Authorize]
     [HttpGet("/simulacoes/por-produto-dia")]
     public async Task<ActionResult<IEnumerable<SimulacaoPorDiaResponse>>> SimulacoesPorDia(CancellationToken cancellationToken)
     {

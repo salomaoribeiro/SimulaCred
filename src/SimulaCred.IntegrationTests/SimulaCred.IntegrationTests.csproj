@@ -4,6 +4,7 @@
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <PreserveCompilationContext>true</PreserveCompilationContext>
 
         <IsPackable>false</IsPackable>
         <IsTestProject>true</IsTestProject>
@@ -12,8 +13,9 @@
     <ItemGroup>
         <PackageReference Include="coverlet.collector" Version="6.0.0"/>
         <PackageReference Include="FluentAssertions" Version="8.8.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.22" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0"/>
-        <PackageReference Include="Moq" Version="4.20.72" />
+        <PackageReference Include="Testcontainers.MsSql" Version="4.8.1" />
         <PackageReference Include="xunit" Version="2.5.3"/>
         <PackageReference Include="xunit.runner.visualstudio" Version="2.5.3"/>
     </ItemGroup>
@@ -23,7 +25,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\SimulaCred.Application\SimulaCred.Application.csproj" />
+      <ProjectReference Include="..\SimulaCred.API\SimulaCred.API.csproj" />
     </ItemGroup>
 
 </Project>

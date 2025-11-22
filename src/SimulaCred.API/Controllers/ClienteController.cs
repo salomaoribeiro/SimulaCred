@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SimulaCred.Application.UseCases.Simulacao.Query;
 using SimulaCred.Application.UseCases.Telemetria.Command;
@@ -20,6 +21,7 @@ public class ClienteController: ControllerBase
         _logger = logger;
     }
     
+    [Authorize]
     [HttpGet("/investimentos/{clienteId}")]
     public async Task<ActionResult<IEnumerable<InvestimentosPorClienteResponse>>> Simulacoes([FromRoute] int clienteId, CancellationToken cancellationToken)
     {

@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SimulaCred.Application.UseCases.Produto.Query;
 using SimulaCred.Application.UseCases.Telemetria.Command;
@@ -21,6 +22,7 @@ public class ProdutoInvestimentoController : ControllerBase
         _mediator = mediator;
     }
 
+    [Authorize]
     [HttpGet("/listar-produtos")]
     public async Task<ActionResult<IEnumerable<ProdutoInvestimento>>> ListarProdutos(CancellationToken cancellationToken)
     {
@@ -43,6 +45,7 @@ public class ProdutoInvestimentoController : ControllerBase
         }
     }
     
+    [Authorize]
     [HttpGet("/produtos-recomendados/{perfil}")]
     public async Task<ActionResult<IEnumerable<ProdutosPorPerfilResponse>>> Simulacoes([FromRoute] PerfilInvestidor perfil, CancellationToken cancellationToken)
     {

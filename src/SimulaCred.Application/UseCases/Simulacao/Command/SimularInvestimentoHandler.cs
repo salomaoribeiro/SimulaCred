@@ -18,7 +18,7 @@ public class SimularInvestimentoHandler : IRequestHandler<SimularInvestimentoReq
     }
 
 
-    public async Task<SimularInvestimentoResponse> Handle(SimularInvestimentoRequest request, CancellationToken cancellationToken)
+    public async Task<SimularInvestimentoResponse> Handle(SimularInvestimentoRequest request, CancellationToken cancellationToken = default)
     {
         var produtos = await _produtoRepository.GetAllAsync(
             cancellationToken);
@@ -44,7 +44,7 @@ public class SimularInvestimentoHandler : IRequestHandler<SimularInvestimentoReq
         
         await _simulacaoRepository.AddAsync(simulacao, cancellationToken);
         
-        return new SimularInvestimentoResponse(
+        var teste =  new SimularInvestimentoResponse(
             new ProdutoValidado(
                 id: simulacao.Id, 
                 nome: produto.Nome,
@@ -57,5 +57,7 @@ public class SimularInvestimentoHandler : IRequestHandler<SimularInvestimentoReq
                 prazoMeses: request.PrazoMeses),
             DataSimulacao: simulacao.CreatedAt
         );
+
+        return teste;
     }
 }
